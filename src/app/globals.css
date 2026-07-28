@@ -1,26 +1,30 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Figma 컬러 시스템 (design-spec.md #1) */
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-500: #64748b;
+  --color-slate-400: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-violet-600: #7c3aed;
+  --color-violet-100: #ede9fe;
+
+  --color-rose-500: #f43f5e;
+  --color-amber-800: #92400e;
+  --color-lime-300: #bef264;
+
+  --font-sans: var(--font-nanum-square), sans-serif;
+
+  /* 과제 스펙 반응형 브레이크포인트: 모바일 ~375 / 태블릿 376~744 / 데스크탑 745~ */
+  --breakpoint-tablet: 376px;
+  --breakpoint-desktop: 745px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-slate-100);
+  color: var(--color-slate-900);
 }
