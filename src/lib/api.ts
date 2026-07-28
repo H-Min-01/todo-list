@@ -7,13 +7,15 @@ import type {
 } from "./types";
 
 const API_ROOT = "https://assignment-todolist-api.vercel.app/api";
-const TENANT_ID = process.env.NEXT_PUBLIC_TENANT_ID;
 
-if (!TENANT_ID) {
-  throw new Error("NEXT_PUBLIC_TENANT_ID 환경변수가 설정되지 않았습니다.");
+/** 모듈 로드 시점(빌드 타임 페이지 데이터 수집 등)이 아니라 실제 호출 시점에 검사한다. */
+function getBaseUrl(): string {
+  const tenantId = process.env.NEXT_PUBLIC_TENANT_ID;
+  if (!tenantId) {
+    throw new Error("NEXT_PUBLIC_TENANT_ID 환경변수가 설정되지 않았습니다.");
+  }
+  return `${API_ROOT}/${tenantId}`;
 }
-
-const BASE_URL = `${API_ROOT}/${TENANT_ID}`;
 
 export class ApiError extends Error {
   constructor(
@@ -26,7 +28,7 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE_URL}${path}`, {
+  const res = await fetch(`${getBaseUrl()}${path}`, {
     ...init,
     headers:
       init?.body && !(init.body instanceof FormData)
