@@ -4,8 +4,8 @@ import { useState, type InputHTMLAttributes } from "react";
 import { useKeyboardFocus } from "@/lib/useKeyboardFocus";
 
 /**
- * 시안의 검색/입력창 스펙(figma/reference/search-reference.svg)을 그대로 재현한
- * 하드 섀도우 입력창. 정적 이미지 대신 실제 <input>으로 구현한다.
+ * 시안의 검색/입력창 스펙을 그대로 재현한 하드 섀도우 입력창.
+ * 정적 이미지 대신 실제 <input>으로 구현한다.
  *
  * 텍스트 입력은 브라우저가 마우스 클릭 포커스에도 :focus-visible을 매칭시키므로,
  * 실제 키보드 포커스일 때만 링이 보이도록 useKeyboardFocus로 직접 구분한다.
