@@ -1,45 +1,66 @@
 # do it — Todo List
 
-할 일 목록을 관리하는 To Do 서비스입니다. Figma 디자인 시안을 기준으로 컬러 시스템, 타이포그래피, 컴포넌트 스펙을 그대로 재현했습니다.
+할 일 목록을 관리하는 Todo 서비스입니다. 진행 중/완료 항목을 나눠서 관리하고, 상세 페이지에서 메모와 이미지를 함께 남길 수 있습니다.
 
-배포 링크: https://codeit-kappa.vercel.app
+- **배포**: https://codeit-kappa.vercel.app
+- **레포지토리**: https://github.com/H-Min-01/todo-list
+
+## Preview
+
+| 목록 (Desktop) | 상세 (Mobile) |
+|---|---|
+| ![목록 페이지 데스크탑 화면](./docs/screenshots/home-desktop.png) | ![상세 페이지 모바일 화면](./docs/screenshots/detail-mobile.png) |
+
+## 주요 기능
+
+**할 일 목록 (`/`)**
+- 진행 중 / 완료 항목 구분 표시
+- `추가하기` 버튼 또는 Enter 키로 할 일 추가
+- 체크박스로 진행 중 ↔ 완료 상태 토글
+- 로고 클릭 시 `/`로 새로고침 이동
+
+**할 일 상세 (`/items/{itemId}`)**
+- 이름 / 완료 상태 / 메모 수정
+- 이미지 첨부 (최대 1개, 영문 파일명 + 5MB 이하만 허용)
+- 수정 완료·삭제 후 목록으로 이동, 재방문 시 저장된 내용 그대로 조회
 
 ## 기술 스택
 
 - [Next.js 16](https://nextjs.org) (App Router) + TypeScript
 - Tailwind CSS v4
-- [assignment-todolist-api](https://assignment-todolist-api.vercel.app/docs/) (Swagger 문서 기준 REST API)
+- [assignment-todolist-api](https://assignment-todolist-api.vercel.app/docs/) (REST API)
 
-## 주요 기능
+## 프로젝트 구조
 
-**할 일 목록 페이지 (`/`)**
-- 진행 중 / 완료 할 일을 구분해서 표시
-- 입력창에 할 일을 입력 후 `추가하기` 버튼 클릭 또는 **Enter 키**로 새 할 일 생성
-- 체크박스 클릭으로 진행 중 ↔ 완료 상태 토글
-- 로고 클릭 시 `/`로 전체 새로고침 이동
+```
+src/
+  app/
+    page.tsx                  # 할 일 목록 페이지
+    layout.tsx                 # 루트 레이아웃, 폰트/메타데이터
+    globals.css                 # Tailwind 테마 토큰
+    items/[itemId]/
+      page.tsx                 # 할 일 상세 페이지
+      not-found.tsx             # 상세 페이지 404 화면
+  components/
+    common/                    # 공용 컴포넌트 (Button, TextField, Checkbox, Header)
+    todo/                      # 도메인 컴포넌트 (TodoItem, TodoInput, ImageUploadBox, MemoBox 등)
+  lib/
+    api.ts                     # API 호출 함수
+    types.ts                   # API 요청/응답 타입
+    fonts.ts                   # 웹폰트 설정
+    useKeyboardFocus.ts         # 키보드/마우스 입력 방식을 구분하는 포커스 훅
+public/
+  fonts/                       # 웹폰트 파일
+  images/                      # SVG 에셋 (logo, icons, badges, illustrations, backgrounds)
+```
 
-**할 일 상세 페이지 (`/items/{itemId}`)**
-- 이름 / 완료 상태 / 메모 수정
-- 이미지 첨부 (최대 1개)
-  - 파일 이름은 영문/숫자만 허용 (정규식 검증)
-  - 파일 크기 5MB 이하만 허용
-  - 조건 미충족 시 화면에 에러 메시지 표시
-- `수정 완료` 클릭 시 저장 후 목록 페이지로 이동
-- `삭제하기` 클릭 시 삭제 후 목록 페이지로 이동
-- 재방문 시 저장된 메모/이미지가 그대로 표시됨 (서버에서 다시 조회)
+## 시작하기
 
-**공통**
-- 반응형 웹 디자인: 모바일(~375px) / 태블릿(376~744px) / 데스크탑(745px~)
-- Figma 컬러 시스템 그대로 적용, 공용 컴포넌트(Button, TextField, Checkbox, Header 등) 재사용
-
-## 실행 방법
+### 설치
 
 ```bash
 npm install
-npm run dev
 ```
-
-브라우저에서 [http://localhost:3000](http://localhost:3000) 접속.
 
 ### 환경 변수
 
@@ -53,42 +74,23 @@ cp .env.example .env.local
 NEXT_PUBLIC_TENANT_ID=your-tenant-id
 ```
 
-- API는 `https://assignment-todolist-api.vercel.app/api/{tenantId}` 형태로 호출되며, `tenantId`는 [src/lib/api.ts](./src/lib/api.ts)에서 `NEXT_PUBLIC_TENANT_ID` 값을 읽어 조립합니다.
-- `tenantId`는 본인만의 식별자(닉네임 등)를 자유롭게 지정하면 되고, 같은 tenantId를 쓰는 동안에는 데이터가 계속 유지됩니다.
+`tenantId`는 API 요청 경로에 쓰이는 본인만의 식별자입니다(닉네임 등 자유 지정).
 
-### 빌드
+### 개발 서버
+
+```bash
+npm run dev
+```
+
+[http://localhost:3000](http://localhost:3000) 에서 확인할 수 있습니다.
+
+### 프로덕션 빌드
 
 ```bash
 npm run build
 npm start
 ```
 
-## 폴더 구조
+## 반응형 지원 범위
 
-```
-src/
-  app/
-    page.tsx                 # 할 일 목록 페이지 (서버 컴포넌트, 목록 조회)
-    layout.tsx                # 루트 레이아웃, 폰트/메타데이터
-    globals.css                # Tailwind 테마 토큰(컬러/브레이크포인트/폰트)
-    items/[itemId]/
-      page.tsx                # 할 일 상세 페이지 (서버 컴포넌트, 단건 조회 + 404 처리)
-      not-found.tsx            # 상세 페이지 404 화면
-  components/
-    common/                   # 공용 컴포넌트 (Button, TextField, Checkbox, Header)
-    todo/                     # 도메인 컴포넌트 (TodoItem, TodoInput, ImageUploadBox, MemoBox 등)
-  lib/
-    api.ts                    # API 호출 함수 (getItems/getItem/createItem/updateItem/deleteItem/uploadImage)
-    types.ts                  # API 요청/응답 타입
-    fonts.ts                  # NanumSquare 웹폰트(next/font/local) 설정
-    useKeyboardFocus.ts        # 키보드/마우스 입력 방식을 구분하는 포커스 훅
-public/
-  fonts/                      # NanumSquare 폰트 파일(.woff2)
-  images/                     # Figma에서 export한 SVG 에셋 (logo, icons, badges, illustrations, backgrounds)
-```
-
-## 로컬 화면 확인
-
-1. `npm run dev` 실행 후 `http://localhost:3000` 접속
-2. 브라우저 개발자 도구(F12) → 기기 툴바로 375 / 744 / 1280px 등 폭을 바꿔가며 반응형 확인 가능
-3. 상세 페이지는 목록에서 항목을 클릭하거나 `http://localhost:3000/items/{itemId}`로 직접 접속
+모바일(≤375px) / 태블릿(376–744px) / 데스크탑(≥745px)
