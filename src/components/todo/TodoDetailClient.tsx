@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/common/Checkbox";
 import { ImageUploadBox } from "@/components/todo/ImageUploadBox";
 import { MemoBox } from "@/components/todo/MemoBox";
 import { deleteItem, updateItem } from "@/lib/api";
+import { useKeyboardFocus } from "@/lib/useKeyboardFocus";
 import type { Item } from "@/lib/types";
 
 /** 할 일 상세/수정/삭제 페이지의 상태와 액션을 담당하는 클라이언트 컴포넌트. */
@@ -17,6 +18,14 @@ export function TodoDetailClient({ item }: { item: Item }) {
   const [memo, setMemo] = useState(item.memo ?? "");
   const [imageUrl, setImageUrl] = useState(item.imageUrl);
   const [saving, setSaving] = useState(false);
+  const isKeyboard = useKeyboardFocus();
+  const [nameFocused, setNameFocused] = useState(false);
+
+  const isDirty =
+    name !== item.name ||
+    isCompleted !== item.isCompleted ||
+    memo !== (item.memo ?? "") ||
+    imageUrl !== item.imageUrl;
 
   const handleSave = async () => {
     setSaving(true);
@@ -53,10 +62,12 @@ export function TodoDetailClient({ item }: { item: Item }) {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
+          onFocus={() => setNameFocused(true)}
+          onBlur={() => setNameFocused(false)}
           aria-label="할 일 이름"
-          className={`w-full rounded-sm bg-transparent text-base font-bold underline decoration-2 underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-600 ${
-            isCompleted ? "text-violet-600" : "text-slate-900"
-          }`}
+          className={`w-full cursor-text rounded-sm bg-transparent text-base font-bold underline decoration-2 underline-offset-4 outline-none ${
+            nameFocused && isKeyboard ? "ring-2 ring-slate-400" : ""
+          } ${isCompleted ? "text-violet-600" : "text-slate-900"}`}
         />
       </div>
 
@@ -68,6 +79,7 @@ export function TodoDetailClient({ item }: { item: Item }) {
       <div className="flex justify-center gap-3">
         <Button
           variant="light"
+          tone={isDirty ? "lime" : undefined}
           onClick={handleSave}
           disabled={saving}
           icon={

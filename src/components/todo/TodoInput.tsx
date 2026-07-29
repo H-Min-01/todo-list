@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/common/Button";
 import { TextField } from "@/components/common/TextField";
 
-/** icon-plus.svg는 흰색 고정이라 밝은 버튼 위에서 보이지 않아, 동일 path를 currentColor로 재사용한다. */
+/** 원본 아이콘은 흰색 고정이라 밝은 버튼 위에서 보이지 않아, 동일 path를 currentColor로 재구현한다. */
 function PlusIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -61,6 +61,7 @@ export function TodoInput({ onAdd }: TodoInputProps) {
       />
       <Button
         variant="light"
+        tone={value.trim() ? "violet" : undefined}
         onClick={handleSubmit}
         disabled={submitting}
         icon={<PlusIcon />}

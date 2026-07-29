@@ -1,8 +1,8 @@
 # do it — Todo List
 
-할 일 목록을 관리하는 To Do 서비스입니다. Figma 디자인 시안을 기준으로 컬러 시스템, 타이포그래피, 컴포넌트 스펙을 그대로 재현했습니다 (자세한 추출 내역은 [design-spec.md](./design-spec.md) 참고).
+할 일 목록을 관리하는 To Do 서비스입니다. Figma 디자인 시안을 기준으로 컬러 시스템, 타이포그래피, 컴포넌트 스펙을 그대로 재현했습니다.
 
-배포 링크: _(배포 후 추가 예정)_
+배포 링크: https://codeit-kappa.vercel.app
 
 ## 기술 스택
 
@@ -81,12 +81,10 @@ src/
     api.ts                    # API 호출 함수 (getItems/getItem/createItem/updateItem/deleteItem/uploadImage)
     types.ts                  # API 요청/응답 타입
     fonts.ts                  # NanumSquare 웹폰트(next/font/local) 설정
+    useKeyboardFocus.ts        # 키보드/마우스 입력 방식을 구분하는 포커스 훅
 public/
   fonts/                      # NanumSquare 폰트 파일(.woff2)
   images/                     # Figma에서 export한 SVG 에셋 (logo, icons, badges, illustrations, backgrounds)
-figma/
-  reference/                  # 코드로 옮기지 않고 참고용으로만 남긴 원본 Figma export
-design-spec.md                 # Figma에서 추출한 컬러/타이포/스페이싱/에셋 명세
 ```
 
 ## 로컬 화면 확인
