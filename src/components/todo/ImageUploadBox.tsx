@@ -70,7 +70,7 @@ export function ImageUploadBox({ imageUrl, onChange }: ImageUploadBoxProps) {
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
           aria-label={imageUrl ? "이미지 수정" : "이미지 추가"}
-          className="absolute bottom-4 right-4 flex size-12 items-center justify-center rounded-full bg-slate-900/50 backdrop-blur-sm"
+          className="absolute bottom-4 right-4 flex size-12 cursor-pointer items-center justify-center rounded-full bg-slate-900/50 backdrop-blur-sm disabled:cursor-not-allowed"
         >
           {imageUrl ? (
             <Image

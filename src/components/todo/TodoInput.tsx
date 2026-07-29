@@ -61,6 +61,7 @@ export function TodoInput({ onAdd }: TodoInputProps) {
       />
       <Button
         variant="light"
+        tone={value.trim() ? "violet" : undefined}
         onClick={handleSubmit}
         disabled={submitting}
         icon={<PlusIcon />}

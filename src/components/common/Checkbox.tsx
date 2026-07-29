@@ -16,7 +16,7 @@ export function Checkbox({ checked, onChange, ...rest }: CheckboxProps) {
       aria-checked={checked}
       onClick={onChange}
       {...rest}
-      className={`flex size-8 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+      className={`flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 transition-colors ${
         checked
           ? "border-violet-600 bg-violet-600"
           : "border-slate-900 bg-white"
