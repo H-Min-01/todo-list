@@ -7,9 +7,89 @@
 
 ## Preview
 
-| 목록 (Desktop) | 상세 (Mobile) |
-|---|---|
-| ![목록 페이지 데스크탑 화면](./docs/screenshots/home-desktop.png) | ![상세 페이지 모바일 화면](./docs/screenshots/detail-mobile.png) |
+<details open>
+  <summary><strong>목록 — 할 일 있음</strong></summary>
+  <br />
+  <table>
+    <thead>
+      <tr>
+        <th>Desktop</th>
+        <th>Tablet</th>
+        <th>Mobile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="./docs/screenshots/home-populated-desktop.png" alt="할 일이 있는 목록 데스크톱 화면" width="420" /></td>
+        <td><img src="./docs/screenshots/home-populated-tablet.png" alt="할 일이 있는 목록 태블릿 화면" width="260" /></td>
+        <td><img src="./docs/screenshots/home-populated-mobile.png" alt="할 일이 있는 목록 모바일 화면" width="180" /></td>
+      </tr>
+    </tbody>
+  </table>
+</details>
+
+<details>
+  <summary><strong>목록 — 빈 상태</strong></summary>
+  <br />
+  <table>
+    <thead>
+      <tr>
+        <th>Desktop</th>
+        <th>Tablet</th>
+        <th>Mobile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="./docs/screenshots/home-empty-desktop.png" alt="빈 목록 데스크톱 화면" width="420" /></td>
+        <td><img src="./docs/screenshots/home-empty-tablet.png" alt="빈 목록 태블릿 화면" width="260" /></td>
+        <td><img src="./docs/screenshots/home-empty-mobile.png" alt="빈 목록 모바일 화면" width="180" /></td>
+      </tr>
+    </tbody>
+  </table>
+</details>
+
+<details>
+  <summary><strong>상세 — 기본 상태</strong></summary>
+  <br />
+  <table>
+    <thead>
+      <tr>
+        <th>Desktop</th>
+        <th>Tablet</th>
+        <th>Mobile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="./docs/screenshots/detail-default-desktop.png" alt="상세 페이지 기본 상태 데스크톱 화면" width="420" /></td>
+        <td><img src="./docs/screenshots/detail-default-tablet.png" alt="상세 페이지 기본 상태 태블릿 화면" width="180" /></td>
+        <td><img src="./docs/screenshots/detail-default-mobile.png" alt="상세 페이지 기본 상태 모바일 화면" width="140" /></td>
+      </tr>
+    </tbody>
+  </table>
+</details>
+
+<details>
+  <summary><strong>상세 — 작성/수정 상태</strong></summary>
+  <br />
+  <table>
+    <thead>
+      <tr>
+        <th>Desktop</th>
+        <th>Tablet</th>
+        <th>Mobile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="./docs/screenshots/detail-filled-desktop.png" alt="상세 페이지 작성 상태 데스크톱 화면" width="420" /></td>
+        <td><img src="./docs/screenshots/detail-filled-tablet.png" alt="상세 페이지 작성 상태 태블릿 화면" width="180" /></td>
+        <td><img src="./docs/screenshots/detail-filled-mobile.png" alt="상세 페이지 작성 상태 모바일 화면" width="140" /></td>
+      </tr>
+    </tbody>
+  </table>
+</details>
 
 ## 주요 기능
 
