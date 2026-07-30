@@ -18,6 +18,8 @@ export function TodoDetailClient({ item }: { item: Item }) {
   const [memo, setMemo] = useState(item.memo ?? "");
   const [imageUrl, setImageUrl] = useState(item.imageUrl);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
   const isKeyboard = useKeyboardFocus();
   const [nameFocused, setNameFocused] = useState(false);
 
@@ -29,6 +31,7 @@ export function TodoDetailClient({ item }: { item: Item }) {
 
   const handleSave = async () => {
     setSaving(true);
+    setActionError(null);
     try {
       await updateItem(item.id, {
         name,
@@ -37,14 +40,24 @@ export function TodoDetailClient({ item }: { item: Item }) {
         imageUrl: imageUrl ?? undefined,
       });
       router.push("/");
+    } catch {
+      setActionError("수정 사항을 저장하지 못했습니다. 다시 시도해주세요.");
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async () => {
-    await deleteItem(item.id);
-    router.push("/");
+    setDeleting(true);
+    setActionError(null);
+    try {
+      await deleteItem(item.id);
+      router.push("/");
+    } catch {
+      setActionError("할 일을 삭제하지 못했습니다. 다시 시도해주세요.");
+    } finally {
+      setDeleting(false);
+    }
   };
 
   return (
@@ -81,7 +94,7 @@ export function TodoDetailClient({ item }: { item: Item }) {
           variant="light"
           tone={isDirty ? "lime" : undefined}
           onClick={handleSave}
-          disabled={saving}
+          disabled={saving || deleting}
           icon={
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
               <path
@@ -99,6 +112,7 @@ export function TodoDetailClient({ item }: { item: Item }) {
         <Button
           variant="danger"
           onClick={handleDelete}
+          disabled={saving || deleting}
           icon={
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
               <path d="M4 4L12 12" stroke="white" strokeWidth="2" strokeLinecap="round" />
@@ -109,6 +123,11 @@ export function TodoDetailClient({ item }: { item: Item }) {
           삭제하기
         </Button>
       </div>
+      {actionError && (
+        <p role="alert" className="text-center text-sm text-rose-500">
+          {actionError}
+        </p>
+      )}
     </div>
   );
 }

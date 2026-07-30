@@ -32,6 +32,7 @@ interface TodoInputProps {
 export function TodoInput({ onAdd }: TodoInputProps) {
   const [value, setValue] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async () => {
     const name = value.trim();
@@ -40,34 +41,47 @@ export function TodoInput({ onAdd }: TodoInputProps) {
     try {
       await onAdd(name);
       setValue("");
+      setError(null);
+    } catch {
+      setError("할 일을 추가하지 못했습니다. 다시 시도해주세요.");
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="flex w-full gap-3">
-      <TextField
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            void handleSubmit();
-          }
-        }}
-        placeholder="할 일을 입력해주세요"
-        aria-label="할 일 입력"
-      />
-      <Button
-        variant="light"
-        tone={value.trim() ? "violet" : undefined}
-        onClick={handleSubmit}
-        disabled={submitting}
-        icon={<PlusIcon />}
-      >
-        추가하기
-      </Button>
-    </div>
+    <>
+      <div className="flex w-full gap-3">
+        <TextField
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            setError(null);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              void handleSubmit();
+            }
+          }}
+          placeholder="할 일을 입력해주세요"
+          aria-label="할 일 입력"
+        />
+        <Button
+          variant="light"
+          tone={value.trim() ? "violet" : undefined}
+          onClick={handleSubmit}
+          disabled={submitting}
+          icon={<PlusIcon />}
+        >
+          추가하기
+        </Button>
+      </div>
+      {error && (
+        <p role="alert" className="mt-2 text-sm text-rose-500">
+          {error}
+        </p>
+      )}
+    </>
   );
 }

@@ -33,19 +33,21 @@ export function Button({
   icon,
   children,
   className = "",
+  type = "button",
   ...rest
 }: ButtonProps) {
   return (
     <button
+      type={type}
       {...rest}
-      className={`group relative inline-flex shrink-0 cursor-pointer disabled:cursor-not-allowed ${className}`}
+      className={`group relative inline-flex shrink-0 cursor-pointer outline-none disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
     >
       <span
         aria-hidden
         className="absolute inset-0 translate-x-1 translate-y-1 rounded-full bg-slate-900"
       />
       <span
-        className={`relative z-10 inline-flex h-14 items-center justify-center gap-1 whitespace-nowrap rounded-full border-2 border-slate-900 px-6 text-base font-bold transition-transform group-active:translate-x-1 group-active:translate-y-1 ${tone ? TONE_CLASSES[tone] : VARIANT_CLASSES[variant]}`}
+        className={`relative z-10 inline-flex h-14 items-center justify-center gap-1 whitespace-nowrap rounded-full border-2 border-slate-900 px-6 text-base font-bold transition-transform group-active:translate-x-1 group-active:translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-slate-400 group-focus-visible:ring-offset-2 ${tone ? TONE_CLASSES[tone] : VARIANT_CLASSES[variant]}`}
       >
         {icon}
         {children}

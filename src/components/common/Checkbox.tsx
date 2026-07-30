@@ -1,6 +1,7 @@
 interface CheckboxProps {
   checked: boolean;
   onChange: () => void;
+  disabled?: boolean;
   "aria-label": string;
 }
 
@@ -8,15 +9,16 @@ interface CheckboxProps {
  * 원형 완료 체크박스. 체크 시 violet-600으로 채워지고 흰 체크 아이콘이 표시된다
  * (상세 페이지 시안의 완료 상태 스크린샷 기준).
  */
-export function Checkbox({ checked, onChange, ...rest }: CheckboxProps) {
+export function Checkbox({ checked, onChange, disabled, ...rest }: CheckboxProps) {
   return (
     <button
       type="button"
       role="checkbox"
       aria-checked={checked}
       onClick={onChange}
+      disabled={disabled}
       {...rest}
-      className={`flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 transition-colors ${
+      className={`flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
         checked
           ? "border-violet-600 bg-violet-600"
           : "border-slate-900 bg-white"

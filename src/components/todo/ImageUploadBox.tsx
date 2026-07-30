@@ -12,6 +12,8 @@ interface ImageUploadBoxProps {
 const MAX_SIZE_BYTES = 5 * 1024 * 1024;
 /** 영문/숫자/일부 특수문자 + 이미지 확장자만 허용 (한글/공백 등 비영문 파일명 차단) */
 const ENGLISH_FILENAME_REGEX = /^[a-zA-Z0-9._-]+\.(jpg|jpeg|png|gif|webp)$/i;
+/** 브라우저가 제공하는 MIME 타입이 허용 목록에 포함되는지 확인한다. */
+const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 
 /**
  * 상세 페이지 이미지 첨부 영역. 파일명이 영문 규칙을 만족하고
@@ -28,6 +30,10 @@ export function ImageUploadBox({ imageUrl, onChange }: ImageUploadBoxProps) {
 
     if (!ENGLISH_FILENAME_REGEX.test(file.name)) {
       setError("파일 이름은 영문/숫자로만 이루어져야 합니다.");
+      return;
+    }
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+      setError("JPG, PNG, GIF, WEBP 이미지 파일만 업로드할 수 있습니다.");
       return;
     }
     if (file.size > MAX_SIZE_BYTES) {
@@ -70,7 +76,7 @@ export function ImageUploadBox({ imageUrl, onChange }: ImageUploadBoxProps) {
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
           aria-label={imageUrl ? "이미지 수정" : "이미지 추가"}
-          className="absolute bottom-4 right-4 flex size-12 cursor-pointer items-center justify-center rounded-full bg-slate-900/50 backdrop-blur-sm disabled:cursor-not-allowed"
+          className="absolute bottom-4 right-4 flex size-12 cursor-pointer items-center justify-center rounded-full bg-slate-900/50 outline-none backdrop-blur-sm focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {imageUrl ? (
             <Image
@@ -95,7 +101,11 @@ export function ImageUploadBox({ imageUrl, onChange }: ImageUploadBoxProps) {
           onChange={(e) => handleFile(e.target.files?.[0])}
         />
       </div>
-      {error && <p className="text-sm text-rose-500">{error}</p>}
+      {error && (
+        <p role="alert" className="text-sm text-rose-500">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
