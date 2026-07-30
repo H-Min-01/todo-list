@@ -29,7 +29,7 @@
 </details>
 
 <details>
-  <summary><strong>목록 — 빈 상태</strong></summary>
+  <summary><strong>목록 — 빈 상태 (새 할 일 입력 중)</strong></summary>
   <br />
   <table>
     <thead>
